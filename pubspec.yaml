@@ -8,13 +8,25 @@ environment:
   flutter: 3.0.4
 
 dependencies:
+  appsize: ^1.0.1
   bloc: ^8.0.3
+  credits_repository:
+    path: packages/credits_repository
+  data_persistence_repository:
+    path: packages/data_persistence_repository
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
+  go_router: ^4.2.4
+  hive: ^2.2.3
   intl: ^0.17.0
+  movies_client:
+    path: packages/movies_client
+  movies_repository:
+    path: packages/movies_repository
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -26,3 +38,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+    - .env
