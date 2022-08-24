@@ -37,10 +37,10 @@ class Movie {
       originalLanguage: json['original_language'] as String?,
       title: json['title'] as String?,
       backdropPath: json['backdrop_path'] as String?,
-      popularity: json['popularity'] as double?,
+      popularity: (json['popularity'] as num?)?.toDouble(),
       voteCount: json['vote_count'] as int?,
       video: json['video'] as bool? ?? false,
-      voteAverage: json['vote_average'] as double?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
     );
   }
 
@@ -85,4 +85,7 @@ class Movie {
 
   /// The vote average of the movie.
   final num? voteAverage;
+
+  /// Returns the full path of the poster of the movie.
+  String get posterFullPath => 'https://image.tmdb.org/t/p/w500$posterPath';
 }

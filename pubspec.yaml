@@ -8,12 +8,14 @@ environment:
   flutter: 3.0.4
 
 dependencies:
-  appsize: ^1.0.1
+  appsize: ^1.1.0+2
   bloc: ^8.0.3
+  card_swiper: ^2.0.4
   credits_repository:
     path: packages/credits_repository
   data_persistence_repository:
     path: packages/data_persistence_repository
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -27,6 +29,7 @@ dependencies:
     path: packages/movies_client
   movies_repository:
     path: packages/movies_repository
+  paginated_list: ^1.0.3
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -41,3 +44,4 @@ flutter:
 
   assets:
     - .env
+    - assets/
