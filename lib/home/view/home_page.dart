@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movies_repository/movies_repository.dart';
 import 'package:very_good_movies/home/cubit/home_cubit.dart';
-import 'package:very_good_movies/home/widgets/card_swiper.dart';
 import 'package:very_good_movies/l10n/l10n.dart';
 
 import '../widgets/widgets.dart';
@@ -59,8 +57,8 @@ class _ViewHomeState extends State<ViewHome> {
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  CardSwiper(movies: state.popularMovies.results),
-                  MovieSlider(state.nowPlayingMovies.results)
+                  CardSwiper(movies: state.nowPlayingMovies),
+                  MovieSlider(state.popularMovies)
                 ],
               ),
             );
