@@ -1,12 +1,14 @@
 import 'package:appsize/appsize.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies_client/movies_client.dart';
+import 'package:very_good_movies/details/view/details_page.dart';
 
 class CardSwiper extends StatelessWidget {
-  const CardSwiper({
+  const CardSwiper(
+    this.movies, {
     super.key,
-    required this.movies,
   });
 
   final List<Movie> movies;
@@ -35,9 +37,16 @@ class CardSwiper extends StatelessWidget {
           final movie = movies[index];
 
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(
+                PageDetails.name,
+                extra: <String, Movie>{
+                  'movie': movie,
+                },
+              );
+            },
             child: Hero(
-              tag: index,
+              tag: 'card-swiper-${movie.id}-${movie.posterPath}',
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(

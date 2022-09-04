@@ -1,3 +1,5 @@
-export 'package:very_good_movies/home/widgets/card_swiper.dart';
-export 'package:very_good_movies/home/widgets/home_error.dart';
-export 'package:very_good_movies/home/widgets/movie_slider.dart';
+export 'card_swiper.dart';
+export 'empty_search_movie.dart';
+export 'home_error.dart';
+export 'movie_slider.dart';
+export 'paginated_loading_more_indicator.dart';

@@ -2,13 +2,16 @@ import 'package:appsize/appsize.dart';
 import 'package:credits_repository/credits_repository.dart';
 import 'package:data_persistence_repository/data_persistence_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_client/movies_client.dart';
 import 'package:movies_repository/movies_repository.dart';
+import 'package:very_good_movies/details/view/details_page.dart';
 import 'package:very_good_movies/home/home.dart';
+import 'package:very_good_movies/home/search_cubit/search_cubit.dart';
 import 'package:very_good_movies/l10n/l10n.dart';
 
 class PageApp extends StatelessWidget {
@@ -26,14 +29,20 @@ class PageApp extends StatelessWidget {
       language: dataPersistenceRepository.language ?? 'en_US',
     );
 
+    final moviesRepository = MoviesRepository(moviesClient);
+    final creditsRepository = CreditsRepository(moviesClient);
+
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: moviesClient),
         RepositoryProvider.value(value: dataPersistenceRepository),
-        RepositoryProvider.value(value: MoviesRepository(moviesClient)),
-        RepositoryProvider.value(value: CreditsRepository(moviesClient)),
+        RepositoryProvider.value(value: moviesRepository),
+        RepositoryProvider.value(value: creditsRepository),
       ],
-      child: const App(),
+      child: BlocProvider(
+        create: (_) => SearchCubit(moviesRepository: moviesRepository),
+        child: const App(),
+      ),
     );
   }
 }
@@ -52,6 +61,13 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _router = router();
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.light, // For Android (dark icons)
+      ),
+    );
   }
 
   @override
@@ -62,7 +78,7 @@ class _AppState extends State<App> {
       routerDelegate: _router.routerDelegate,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+        appBarTheme: const AppBarTheme(color: Colors.black87),
         colorScheme: ColorScheme.fromSwatch(
           accentColor: const Color(0xFF13B9FF),
         ),
@@ -86,6 +102,17 @@ class _AppState extends State<App> {
           path: '/',
           name: PageHome.name,
           builder: (context, state) => const PageHome(),
+        ),
+        GoRoute(
+          path: '/details',
+          name: PageDetails.name,
+          builder: (context, state) {
+            final movie = (state.extra as Map?)?['movie'] as Movie?;
+            if (movie == null) {
+              throw ArgumentError.notNull('movie');
+            }
+            return PageDetails(movie);
+          },
         ),
       ],
     );
