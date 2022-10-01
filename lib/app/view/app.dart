@@ -29,7 +29,7 @@ class PageApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final language = dataPersistenceRepository.language ?? 'en_US';
+    final language = dataPersistenceRepository.language ?? 'en';
 
     final moviesClient = MoviesClient(
       apiKey: dotenv.env['API_KEY'] ?? '',
@@ -150,7 +150,8 @@ class _AppState extends State<App> {
           path: '/settins',
           name: ViewSettings.name,
           builder: (context, state) {
-            final languages = (state.extra as Map?)?['languages'] as List<Language>?;
+            final languages =
+                (state.extra as Map?)?['languages'] as List<Language>?;
             if (languages == null) {
               throw ArgumentError.notNull('movie');
             }
