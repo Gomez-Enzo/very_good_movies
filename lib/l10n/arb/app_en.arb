@@ -20,7 +20,7 @@
     "searchMovie": "Search a movie",
     "home": "Home",
     "cast": "Cast",
-    "settings":"settings",
-    "language":"language",
-    "darkMode":"darkMode"
+    "settings": "Settings",
+    "darkMode": "Dark mode",
+    "language": "Language"
 }
